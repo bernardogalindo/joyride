@@ -176,6 +176,16 @@
           // ++++++++++++++++++  
           
           if (settings.blurPage){
+            $('div.containerTipFocus').remove();   
+            var focusElement = '<div class="containerTipFocus"></div>';
+            $('body').append(focusElement);
+            var focusElementContainer = $('.containerTipFocus');
+            focusElementContainer.width(parentElement.width());
+            focusElementContainer.height(parentElement.height());
+            focusElementContainer.offset({top: (parentElement.offset().top), left: (parentElement.offset().left)  });
+            var bgparent = parentElement.css('background-color');
+            focusElementContainer.css('background-color', bgparent);
+            
             parentElement.addClass('currentTipFocus'); 
           }
 
@@ -391,6 +401,7 @@
         }
         $(self).parent().parent().hide();
         if (settings.blurPage) {
+          $('div.containerTipFocus').remove();   
           $('.joyride-blurpage').remove(); 
         }   
         if (settings.postRideCallback != $.noop) {
