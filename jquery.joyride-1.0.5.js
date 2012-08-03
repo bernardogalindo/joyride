@@ -225,7 +225,7 @@
                 });
                 nub.addClass('bottom');
               }
-            } else {
+            }else {
               // Default is bottom alignment.
               currentTip.offset({
                 top: (currentTipPosition.top + currentParentHeight + nubHeight),
@@ -238,7 +238,8 @@
           // Default is left alignment.
           if (tipSettings.tipLocation.indexOf("right") != -1) {
             // Here we ignore the viewport alignment.
-            currentTip.offset({left: (currentTipPosition.left - bodyOffset.left - currentTip.width() + parentElement.width())});
+            currentTip.offset({top: currentTipPosition.top , left: (currentTipPosition.left + parentElement.width() + nubHeight )});
+           // currentTip.offset({left: (currentTipPosition.left - bodyOffset.left - currentTip.width() + parentElement.width())});
             currentTip.children('.joyride-nub').addClass('right');
           }
 
@@ -307,6 +308,7 @@
         var parentElementID = $(tipContent[prevCount]).data('id'),
           currentTipPosition = $('#' + parentElementID).offset(),
           currentParentHeight = $('#' + parentElementID).outerHeight(),
+          currentParentWidth =  $('#' + parentElementID).outerWidth(),
           currentTipHeight = $('#joyRidePopup' + prevCount).outerHeight(),
           nubHeight = Math.ceil($('.joyride-nub').outerHeight() / 2);
         if (Modernizr.mq('only screen and (max-width: 769px)')) {
@@ -323,7 +325,7 @@
                 left: 0
               });
               $('#joyRidePopup' + prevCount).children('.joyride-nub').addClass('top').removeClass('bottom').css({ left: (currentTipPosition.left - bodyOffset.left) });
-
+          
             } else {
               $('#joyRidePopup' + prevCount).offset({
                 top: ((currentTipPosition.top) - (currentTipHeight + nubHeight)),
@@ -331,6 +333,9 @@
               });
               $('#joyRidePopup' + prevCount).children('.joyride-nub').addClass('bottom').removeClass('top').css({ left: (currentTipPosition.left - bodyOffset.left) });
             }
+          } else if (settings.tipLocation == "right"){
+            $('#joyRidePopup' + prevCount).offset({top: currentTipPosition.top , left: (currentTipPosition.left + currentParentWidth  + nubHeight )});
+            $('#joyRidePopup' + prevCount).children('.joyride-nub').addClass('right').removeClass('top');   
           }
         } else {
           if (settings.tipLocation == "bottom") {
@@ -354,6 +359,9 @@
               });
               $('#joyRidePopup' + prevCount).children('.joyride-nub').addClass('bottom').removeClass('top').css({ left: '' });
             }
+          } else if (settings.tipLocation == "right"){
+            $('#joyRidePopup' + prevCount).offset({top: currentTipPosition.top , left: (currentTipPosition.left + currentParentWidth  + nubHeight )});
+            $('#joyRidePopup' + prevCount).children('.joyride-nub').addClass('right').removeClass('top');
           }
         }
       });
